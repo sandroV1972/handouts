@@ -28,7 +28,7 @@ jobs:
         with:
           add-job-summary: 'always'
       - name: Build with Gradle
-        run: ./gradlew --refresh-dependencies build --scan
+        run: ./gradlew --refresh-dependencies build
       - name: Summarize tests results
         uses: jeantessier/test-summary-action@v1
         if: always()

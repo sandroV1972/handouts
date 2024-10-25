@@ -119,6 +119,9 @@ clean {
 }
 
 pmd {
+  if (!project.hasProperty('doPMD')) {
+    sourceSets = []
+  }
   toolVersion = '7.6.0'
   consoleOutput = false
   ignoreFailures = true
@@ -135,6 +138,9 @@ dependencies {
 }
 
 checkstyle {
+  if (!project.hasProperty('doCheckstyle')) {
+    sourceSets = []
+  }
   toolVersion = '10.18.2'
   ignoreFailures = true
   maxWarnings = 0
