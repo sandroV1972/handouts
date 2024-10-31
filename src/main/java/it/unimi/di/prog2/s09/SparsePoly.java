@@ -45,7 +45,7 @@ public class SparsePoly {
     /**
      * Builds a term.
      *
-     * @throws NegativeExponentException if if {@code n} &lt; 0.
+     * @throws NegativeExponentException if {@code n} &lt; 0.
      */
     public Term { // using the compact constructor
       if (degree < 0)
@@ -196,44 +196,5 @@ public class SparsePoly {
     List<Term> lst = new LinkedList<>();
     for (Term t : terms) lst.add(new Term(-t.coeff, t.degree));
     return new SparsePoly(lst);
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (!(obj instanceof SparsePoly)) return false;
-    SparsePoly other = (SparsePoly) obj;
-    return terms.equals(other.terms);
-  }
-
-  @Override
-  public int hashCode() {
-    return terms.hashCode();
-  }
-
-  @Override
-  public String toString() {
-    if (degree() > 0) {
-      StringBuilder sb = new StringBuilder("SparsePoly: ");
-      int pos = terms.size() - 1;
-      Term t = terms.get(pos);
-      if (t.coeff < -1) sb.append("-" + (-t.coeff));
-      else if (t.coeff == -1) sb.append("-");
-      else if (t.coeff > 1) sb.append(t.coeff);
-      sb.append("x" + (t.degree > 1 ? "^" + t.degree : ""));
-      while (--pos >= 0) {
-        t = terms.get(pos);
-        if (t.degree == 0) break;
-        if (t.coeff < -1) sb.append(" - " + (-t.coeff));
-        else if (t.coeff == -1) sb.append(" - ");
-        else if (t.coeff == 1) sb.append(" + ");
-        else sb.append(" + " + t.coeff);
-        sb.append("x" + (t.degree > 1 ? "^" + t.degree : ""));
-      }
-      if (t.degree == 0)
-        if (t.coeff > 0) sb.append(" + " + t.coeff);
-        else if (t.coeff < 0) sb.append(" - " + (-t.coeff));
-      return sb.toString();
-    } else return "SparsePoly: " + (terms.isEmpty() ? 0 : terms.get(0).coeff);
   }
 }
