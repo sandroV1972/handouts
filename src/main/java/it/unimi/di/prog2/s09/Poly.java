@@ -19,9 +19,10 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.h09;
+package it.unimi.di.prog2.s09;
 
 import it.unimi.di.prog2.h08.impl.NegativeExponentException;
+import java.util.Objects;
 
 /**
  * {@code Poly}s are immutable polynomials with integer coefficients.
@@ -30,20 +31,12 @@ import it.unimi.di.prog2.h08.impl.NegativeExponentException;
  */
 public class Poly { // we don't extend Cloneable, see EJ 3.13
 
-  // Fields
-
-  /** The array of coefficients, the {@code coefficient[i]} is the coefficient of \( x^i \). */
+  /** The array of coefficients, the {@code coeff[i]} is the coefficient of \( x^i \). */
   private final int[] coefficient;
-
-  /** The degree of the polynomial. */
-  private final int degree;
-
-  // Constructors
 
   /** Initializes this to be the zero polynomial, that is \( p = 0 \). */
   public Poly() {
     coefficient = new int[1];
-    degree = 0;
   }
 
   /**
@@ -56,34 +49,17 @@ public class Poly { // we don't extend Cloneable, see EJ 3.13
   public Poly(int c, int n) throws NegativeExponentException {
     if (n < 0)
       throw new NegativeExponentException("Can't create a monomial with negative exponent");
-    if (c == 0) degree = 0;
-    else degree = n;
-    coefficient = new int[degree + 1];
-    coefficient[degree] = c;
+    coefficient = new int[n + 1];
+    coefficient[n] = c;
   }
 
   /**
    * Initializes a polynomial of given degree (with all coefficients equal to 0).
    *
-   * @param degree the degree, must be non negative.
+   * @param n the degree, must be non-negative.
    */
-  private Poly(int degree) {
-    this.degree = degree;
-    coefficient = new int[degree + 1];
-  }
-
-  // Methods
-
-  /**
-   * A factory method returning a monomial. (see EJ 2.1)
-   *
-   * @param c the coefficient.
-   * @param n the degree.
-   * @throws NegativeExponentException if {@code n} &lt; 0.
-   * @return the monomial, if {@code n} &gt;= 0.
-   */
-  public static Poly monomialWithCoeffAndDegree(int c, int n) {
-    return new Poly(c, n);
+  private Poly(int n) {
+    coefficient = new int[n + 1];
   }
 
   /**
@@ -93,18 +69,18 @@ public class Poly { // we don't extend Cloneable, see EJ 3.13
    *     Poly}.
    */
   public int degree() {
-    return degree;
+    return coefficient.length - 1;
   }
 
   /**
    * Returns the coefficient of the term of given exponent.
    *
-   * @param degree the exponent of the term to consider.
+   * @param d the exponent of the term to consider.
    * @return the coefficient of the considered term.
    */
-  public int coeff(int degree) {
-    if (degree < 0 || degree > this.degree) return 0;
-    else return coefficient[degree];
+  public int coeff(int d) {
+    if (d < 0 || d >= coefficient.length) return 0;
+    else return coefficient[d];
   }
 
   /**
@@ -117,7 +93,27 @@ public class Poly { // we don't extend Cloneable, see EJ 3.13
    * @throws NullPointerException if {@code q} is {@code null}.
    */
   public Poly add(Poly q) throws NullPointerException {
-    throw new UnsupportedOperationException("Not yet implemented");
+    Objects.requireNonNull(q, "The polynomial must not be null.");
+    final Poly larger, smaller;
+    if (degree() > q.degree()) {
+      larger = this;
+      smaller = q;
+    } else {
+      larger = q;
+      smaller = this;
+    }
+    int resultDegree = larger.degree();
+    if (degree() == q.degree()) {
+      for (int k = degree(); k > 0; k--)
+        if (coefficient[k] + q.coefficient[k] != 0) break;
+        else resultDegree--;
+    }
+    Poly result = new Poly(resultDegree); // get a new Poly
+    int i;
+    for (i = 0; i <= smaller.degree() && i <= resultDegree; i++)
+      result.coefficient[i] = smaller.coefficient[i] + larger.coefficient[i];
+    for (int j = i; j <= resultDegree; j++) result.coefficient[j] = larger.coefficient[j];
+    return result;
   }
 
   /**
@@ -130,14 +126,14 @@ public class Poly { // we don't extend Cloneable, see EJ 3.13
    * @throws NullPointerException if {@code q} is {@code null}.
    */
   public Poly mul(Poly q) throws NullPointerException {
-    if (q == null) throw new NullPointerException("The polynomial must not be null.");
-    if ((q.degree == 0 && q.coefficient[0] == 0) || (degree == 0 && coefficient[0] == 0))
+    Objects.requireNonNull(q, "The polynomial must not be null.");
+    if ((q.degree() == 0 && q.coefficient[0] == 0) || (degree() == 0 && coefficient[0] == 0))
       return new Poly();
-    Poly result = new Poly(degree + q.degree);
-    for (int i = 0; i <= degree; i++)
-      for (int j = 0; j <= q.degree; j++)
-        result.coefficient[i + j] = result.coefficient[i + j] + coefficient[i] * q.coefficient[j];
-    return result;
+    Poly r = new Poly(degree() + q.degree());
+    for (int i = 0; i <= degree(); i++)
+      for (int j = 0; j <= q.degree(); j++)
+        r.coefficient[i + j] = r.coefficient[i + j] + coefficient[i] * q.coefficient[j];
+    return r;
   }
 
   /**
@@ -150,7 +146,7 @@ public class Poly { // we don't extend Cloneable, see EJ 3.13
    * @throws NullPointerException if {@code q} is {@code null}.
    */
   public Poly sub(Poly q) throws NullPointerException {
-    if (q == null) throw new NullPointerException("The polynomial must not be null.");
+    Objects.requireNonNull(q, "The polynomial must not be null.");
     return add(q.minus());
   }
 
@@ -162,8 +158,8 @@ public class Poly { // we don't extend Cloneable, see EJ 3.13
    * @return this polynomial multiplied by \( -1 \).
    */
   public Poly minus() {
-    Poly r = new Poly(degree);
-    for (int i = 0; i <= degree; i++) r.coefficient[i] = -coefficient[i];
+    Poly r = new Poly(degree());
+    for (int i = 0; i <= degree(); i++) r.coefficient[i] = -coefficient[i];
     return r;
   }
 }

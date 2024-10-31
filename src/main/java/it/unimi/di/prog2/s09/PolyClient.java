@@ -19,37 +19,34 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.e09;
+package it.unimi.di.prog2.s09;
 
-/** A class to test some methods of {@link SparsePoly}. */
-public class SparsePolyClient {
+import java.util.Scanner;
+
+/** A class to test some methods of {@link Poly}. */
+public class PolyClient {
 
   /** . */
-  private SparsePolyClient() {}
+  private PolyClient() {}
 
   /**
-   * Tests some methods of {@link SparsePoly}.
+   * Tests some methods of {@link Poly}.
    *
-   * <p>Starting from term \( t_0 = x + 1 \) reads a list of \( t_i \) of terms from the standard
-   * input, given as a (coefficient, degree) pairs, and computes the polynomials \( p_{i+1} = p_i
-   * \codt t_i + t_i \) emitting in the standard output the pairs "coefficient degree" for every
-   * term (in increasing order of degree) of the last computed polynomial.
+   * <p>Starting from term \( t_0 = 0 \) reads a list of \( t_i \) of terms from the standard input,
+   * given as a (coefficient, degree) pairs, and computes the polynomial \( t_0 + t_1 + t_2 \cdots
+   * \), emitting in the standard output the pairs "coefficient degree" for every term in the result
+   * (in increasing order of degree).
    *
    * @param args not used.
    */
-
-  /*- Uncomment the main method once you have implemented the SparsePoly class
-
   public static void main(String[] args) {
-    SparsePoly result = new SparsePoly(1, 1).add(new SparsePoly(-1, 0));
+    Poly result = new Poly();
     try (Scanner s = new Scanner(System.in)) {
       while (s.hasNextInt()) {
-        SparsePoly term = new SparsePoly(s.nextInt(), s.nextInt());
-        result = result.mul(term).add(term);
+        Poly term = new Poly(s.nextInt(), s.nextInt());
+        result = result.add(term);
       }
       for (int d = 0; d <= result.degree(); d++) System.out.println(result.coeff(d) + " " + d);
     }
   }
-
-  */
 }

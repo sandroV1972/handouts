@@ -30,10 +30,10 @@ public class PolyClient {
   /**
    * Tests some methods of {@link Poly}.
    *
-   * <p>Starting from term \( t_0 = x + 1 \) reads a list of \( t_i \) of terms from the standard
-   * input, given as a (coefficient, degree) pairs, and computes the polynomial \( t_0 \cdot t_1
-   * \cdot t_2 \cdots \), emitting in the standard output the pairs "coefficient degree" for every
-   * term in the result (in increasing order of degree).
+   * <p>Starting from term \( t_0 = 0 \) reads a list of \( t_i \) of terms from the standard input,
+   * given as a (coefficient, degree) pairs, and computes the polynomial \( t_0 + t_1 + t_2 \cdots
+   * \), emitting in the standard output the pairs "coefficient degree" for every term in the result
+   * (in increasing order of degree).
    *
    * @param args not used.
    */
@@ -41,16 +41,15 @@ public class PolyClient {
   /*- Uncomment the main method once you have implemented the add method in Poly class
 
   public static void main(String[] args) {
-    Poly result = null;
-    Poly xp1 = new Poly(1, 1).add(new Poly(-1, 0));
+    Poly result = new Poly();
     try (Scanner s = new Scanner(System.in)) {
       while (s.hasNextInt()) {
         Poly term = new Poly(s.nextInt(), s.nextInt());
-        if (result == null) result = term;
-        else result = result.mul(xp1).add(term);
+        result = result.add(term);
       }
       for (int d = 0; d <= result.degree(); d++) System.out.println(result.coeff(d) + " " + d);
     }
   }
+
   */
 }
