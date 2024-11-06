@@ -19,9 +19,10 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.s09;
+package it.unimi.di.prog2.h10;
 
 import it.unimi.di.prog2.h08.impl.NegativeExponentException;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -162,5 +163,44 @@ public class Poly { // we don't extend Cloneable, see EJ 3.13
     Poly r = new Poly(degree());
     for (int i = 0; i <= degree(); i++) r.coefficient[i] = -coefficient[i];
     return r;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o == this) return true;
+    if (!(o instanceof Poly)) return false;
+    Poly q = (Poly) o;
+    if (degree() != q.degree()) return false;
+    return Arrays.equals(coefficient, q.coefficient);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(degree(), coefficient);
+  }
+
+  @Override
+  public String toString() {
+    if (degree() > 0) {
+      StringBuilder sb = new StringBuilder("Poly: ");
+      int c = coefficient[degree()];
+      if (c < -1) sb.append("-" + (-c));
+      else if (c == -1) sb.append("-");
+      else if (c > 1) sb.append(c);
+      sb.append("x" + (degree() > 1 ? "^" + degree() : ""));
+      for (int d = degree() - 1; d > 0; d--) {
+        c = coefficient[d];
+        if (c == 0) continue;
+        if (c < -1) sb.append(" - " + (-c));
+        else if (c == -1) sb.append(" - ");
+        else if (c == 1) sb.append(" + ");
+        else sb.append(" + " + c);
+        sb.append("x" + (d > 1 ? "^" + d : ""));
+      }
+      c = coefficient[0];
+      if (c > 0) sb.append(" + " + c);
+      else if (c < 0) sb.append(" - " + (-c));
+      return sb.toString();
+    } else return "Poly: " + coefficient[0];
   }
 }

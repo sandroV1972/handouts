@@ -19,7 +19,7 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.s09;
+package it.unimi.di.prog2.h10;
 
 import java.util.Scanner;
 
@@ -34,8 +34,7 @@ public class PolyClient {
    *
    * <p>Starting from term \( t_0 = 0 \) reads a list of \( t_i \) of terms from the standard input,
    * given as a (coefficient, degree) pairs, and computes the polynomial \( t_0 + t_1 + t_2 \cdots
-   * \), emitting in the standard output the pairs "coefficient degree" for every term in the result
-   * (in increasing order of degree).
+   * \), emitting the resulting polynomial in the standard output.
    *
    * @param args not used.
    */
@@ -47,6 +46,6 @@ public class PolyClient {
         result = result.add(term);
       }
     }
-    for (int d = 0; d <= result.degree(); d++) System.out.println(result.coeff(d) + " " + d);
+    System.out.println(result);
   }
 }
