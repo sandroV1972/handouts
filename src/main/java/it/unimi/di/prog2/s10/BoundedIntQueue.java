@@ -41,6 +41,22 @@ public class BoundedIntQueue {
   /** The index of the first free position in {@link #elements} (if the queue is not full). */
   private int tail;
 
+  /*-
+   * AF:
+   *
+   *  AF(elements, head, tail) =
+   *      [elements[head], elements[head+1], ..., elements[tail-1]] se -1 < head <= tail
+   *      [elements[head], elements[head+1], ..., elements[elements.length-1], elements[0], ..., elements[tail-1]] se head > tail
+   *
+   * RI:
+   *
+   *  - elements is not null and has length equal to the capacity
+   *  - -1 <= head < capacity
+   *  -  0 <= tail < capacity
+   *  - head == -1 ⇒ tail = 0
+   *
+   */
+
   /**
    * Creates a new bounded queue with the given capacity.
    *

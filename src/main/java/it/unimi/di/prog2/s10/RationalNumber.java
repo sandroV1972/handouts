@@ -35,6 +35,18 @@ public class RationalNumber {
   /** The denominator. */
   public final int denominator;
 
+  /*-
+   * AF:
+   *
+   *   AF(numerator, denominator) = numerator/denominator
+   *
+   * RI:
+   *
+   *  - denominator > 0
+   *  - gcd(numerator, denominator) == 1
+   *
+   */
+
   /**
    * Computes the greatest common divisor of two numbers.
    *
