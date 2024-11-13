@@ -36,7 +36,7 @@ import java.util.Objects;
 public class SparsePoly {
 
   /**
-   * A record holding a term of the polynomial.
+   * A record holding a non-zero term of the polynomial.
    *
    * @param coefficient the coefficient.
    * @param degree the degree.
@@ -73,12 +73,14 @@ public class SparsePoly {
   private final List<Term> terms;
 
   /*
-   * AF: associa a terms il polinomio dato dalla somma dei monomi in terms.
-   * RI: terms != null
-   * terms non deve contenere null
-   * terms non contiene due termini diversi col medesimo grado; detto
-   * altrimenti, 0 <= i < j < terms.size() allora
-   * terms.get(i).degree < terms.get(j).degree
+   * AF:
+   *
+   *  AF(terms) = \sum terms.get(i).coefficient x^terms.get(i).degree
+   *
+   * RI:
+   *
+   *  - terms != null and does not contain null
+   *  - terms is in strictly increasing degree order
    */
 
   /** Initializes this to be the zero polynomial, that is \( p = 0 \). */
@@ -186,8 +188,8 @@ public class SparsePoly {
    * @throws NullPointerException if {@code q} is {@code null}.
    */
   public SparsePoly add(SparsePoly q) throws NullPointerException {
-    Objects.requireNonNull(q);
-    final List<Term> result = new ArrayList<>(this.terms);
+    Objects.requireNonNull(q, "The polynomial to add cannot be null.");
+    List<Term> result = new ArrayList<>(this.terms);
     for (Term t : q.terms) addTerm(result, t);
     return new SparsePoly(result);
   }
@@ -202,8 +204,8 @@ public class SparsePoly {
    * @throws NullPointerException if {@code q} is {@code null}.
    */
   public SparsePoly mul(SparsePoly q) throws NullPointerException {
-    Objects.requireNonNull(q);
-    final List<Term> lst = new ArrayList<>();
+    Objects.requireNonNull(q, "The polynomial to multiply cannot be null.");
+    List<Term> lst = new ArrayList<>();
     for (Term tq : q.terms)
       for (Term tt : terms)
         addTerm(lst, new Term(tq.coefficient * tt.coefficient, tq.degree + tt.degree));
@@ -220,7 +222,7 @@ public class SparsePoly {
    * @throws NullPointerException if {@code q} is {@code null}.
    */
   public SparsePoly sub(SparsePoly q) throws NullPointerException {
-    Objects.requireNonNull(q);
+    Objects.requireNonNull(q, "The polynomial to subtract cannot be null.");
     return add(q.minus());
   }
 

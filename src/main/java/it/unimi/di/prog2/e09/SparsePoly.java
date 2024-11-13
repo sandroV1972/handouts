@@ -33,7 +33,7 @@ import java.util.List;
 public class SparsePoly {
 
   /**
-   * A record holding a term of the polynomial.
+   * A record holding a non zero term of the polynomial.
    *
    * @param coeff the coefficient.
    * @param degree the degree.
@@ -47,6 +47,7 @@ public class SparsePoly {
     public Term { // using the compact constructor
       if (degree < 0)
         throw new NegativeExponentException("A term cannot have a negative exponent.");
+      if (coeff == 0) throw new IllegalArgumentException("A term cannot have a zero coefficient.");
     }
   }
 
