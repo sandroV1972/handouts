@@ -144,3 +144,17 @@ trovare il materiale nel
 * branch dell'[AA 2021/22](../../tree/aa2122),
 * branch dell'[AA 2022/23](../../tree/aa2223),
 * branch dell'[AA 2023/24](../../tree/aa2324).
+
+## Un prompt per la simulazione dell'esame orale (basata su AI)
+
+In modo del tutto **sperimentale**, gli studenti possono interagire con un
+sistema di AI, come ad esempio [ChatGPT](https://chatgpt.com/) o
+[Claude](https://claude.ai/), per svolgere una simulazione dell'esame orale; a
+tale fine, dopo aver acceduto al sistema di AI, possono incollare il
+[prompt](ai-prompt.md) predisposto e procedere a rispondere alle domande che il
+modello genererà.
+
+La valutazione delle risposte fornite dall'AI è **esclusivamente indicativa** e
+non è affatto garantito che rispecchi la valutazione finale dell'esame; può ciò
+nonostante essere un accettabile punto di partenza per valutare la propria
+preparazione e la propria capacita di comunicare in modo chiaro e completo.
