@@ -84,7 +84,7 @@ javadoc {
     description = 'Generates Javadoc API documentation and UML diagrams for the main source code.'
     encoding = 'UTF-8'
     charSet = 'UTF-8'
-    links = [ 'https://docs.oracle.com/en/java/javase/17/docs/api/' ]
+    links = [ 'https://docs.oracle.com/en/java/javase/21/docs/api/' ]
     docTitle = 'Programmazione II @ UniMI'
     overview = 'src/overview.html'
     header = '<script type=\'text/javascript\' src=\'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\'></script>'
@@ -109,7 +109,7 @@ spotless {
 }
 
 tasks.register('cleanActual', Delete) {
-  delete fileTree('ztests').matching {
+  delete fileTree('tests').matching {
     include '**/actual-*.txt'
   }
 }

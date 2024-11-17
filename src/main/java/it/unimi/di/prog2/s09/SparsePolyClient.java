@@ -46,7 +46,7 @@ public class SparsePolyClient {
         SparsePoly term = new SparsePoly(s.nextInt(), s.nextInt());
         result = result.mul(term).add(term);
       }
-      for (int d = 0; d <= result.degree(); d++) System.out.println(result.coeff(d) + " " + d);
     }
+    for (int d = 0; d <= result.degree(); d++) System.out.println(result.coeff(d) + " " + d);
   }
 }

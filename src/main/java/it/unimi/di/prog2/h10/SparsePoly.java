@@ -19,7 +19,7 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.s09;
+package it.unimi.di.prog2.h10;
 
 import it.unimi.di.prog2.h08.impl.NegativeExponentException;
 import java.util.Collections;
@@ -203,5 +203,43 @@ public class SparsePoly {
     List<Term> lst = new LinkedList<>();
     for (Term t : terms) lst.add(new Term(-t.coefficient, t.degree));
     return new SparsePoly(lst);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (!(obj instanceof SparsePoly other)) return false;
+    return terms.equals(other.terms);
+  }
+
+  @Override
+  public int hashCode() {
+    return terms.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    if (degree() > 0) {
+      StringBuilder sb = new StringBuilder("SparsePoly: ");
+      int pos = terms.size() - 1;
+      Term t = terms.get(pos);
+      if (t.coefficient < -1) sb.append("-" + (-t.coefficient));
+      else if (t.coefficient == -1) sb.append("-");
+      else if (t.coefficient > 1) sb.append(t.coefficient);
+      sb.append("x" + (t.degree > 1 ? "^" + t.degree : ""));
+      while (--pos >= 0) {
+        t = terms.get(pos);
+        if (t.degree == 0) break;
+        if (t.coefficient < -1) sb.append(" - " + (-t.coefficient));
+        else if (t.coefficient == -1) sb.append(" - ");
+        else if (t.coefficient == 1) sb.append(" + ");
+        else sb.append(" + " + t.coefficient);
+        sb.append("x" + (t.degree > 1 ? "^" + t.degree : ""));
+      }
+      if (t.degree == 0)
+        if (t.coefficient > 0) sb.append(" + " + t.coefficient);
+        else if (t.coefficient < 0) sb.append(" - " + (-t.coefficient));
+      return sb.toString();
+    } else return "SparsePoly: " + (terms.isEmpty() ? 0 : terms.get(0).coefficient);
   }
 }

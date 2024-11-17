@@ -19,34 +19,32 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.s09;
+package it.unimi.di.prog2.s10;
 
-import java.util.Scanner;
-
-/** A class to test some methods of {@link Poly}. */
-public class PolyClient {
+/** A class to exercise a {@link BoundedIntQueue}. */
+public class BoundedIntQueueClient {
 
   /** . */
-  private PolyClient() {}
+  private BoundedIntQueueClient() {}
 
   /**
-   * Tests some methods of {@link Poly}.
+   * Tests some methods of {@link BoundedIntQueue}.
    *
-   * <p>Starting from term \( t_0 = 0 \) reads a list of \( t_i \) of terms from the standard input,
-   * given as a (coefficient, degree) pairs, and computes the polynomial \( t_0 + t_1 + t_2 \cdots
-   * \), emitting in the standard output the pairs "coefficient degree" for every term in the result
-   * (in increasing order of degree).
+   * <p>Reads a list of integers from the standard input; if a positive number is read, it is added
+   * to a bounded queue of size 10; if a negative number is read, it is dequeued and emitted on the
+   * standard output. When the input terminates, the queue is emitted on the standard output.
    *
    * @param args not used.
    */
   public static void main(String[] args) {
-    Poly result = new Poly();
-    try (Scanner s = new Scanner(System.in)) {
+    BoundedIntQueue queue = new BoundedIntQueue(10);
+    try (java.util.Scanner s = new java.util.Scanner(System.in)) {
       while (s.hasNextInt()) {
-        Poly term = new Poly(s.nextInt(), s.nextInt());
-        result = result.add(term);
+        int x = s.nextInt();
+        if (x > 0) queue.enqueue(x);
+        else System.out.println(queue.dequeue());
       }
     }
-    for (int d = 0; d <= result.degree(); d++) System.out.println(result.coeff(d) + " " + d);
+    System.out.println(queue);
   }
 }

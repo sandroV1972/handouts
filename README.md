@@ -17,6 +17,45 @@ della documentazione suggerita** e in nessun caso è da ritenersi *esaustivo* e
 *privo di errori*, ma **è provvisto al solo scopo di consentire agli studenti di
 ripercorrere i passi visti a lezione e suggerire alcuni esercizi**.
 
+## Organizzazione del materiale
+
+Il contenuto di questo *repository* segue l'organizzazione dei file prevista dal
+*build automation tool* scelto per la gestione del codice (si veda la prossima
+sezione per maggiori dettagli).
+
+In particolare, i **file sorgenti** sono contenuti nella directory
+`src/main/java`, divisi in sottodirectory una per ciascuna lezione; più nel
+dettaglio, ad esempio nel caso della *decima lezione*, le directory
+
+```
+src/main/java/it/unimi/di/prog2/h10
+src/main/java/it/unimi/di/prog2/e10
+src/main/java/it/unimi/di/prog2/s10
+```
+
+contengono rispettivamente il codice relativo a:
+
+* gli **esempi presentati in classe** (cartella `h10`),
+* gli **esercizi assegnati per casa** (cartella `e10`) e
+* le **soluzioni di una selezione degli esercizi** assegnati per casa (cartella
+  `s10`); si noti che non tutte le lezioni hanno esercizi assegnati e non per
+  tutti gli esercizi assegnati viene pubblicata una soluzione.
+
+Il codice Java è corredato dalla **documentazione** che può essere generata in
+locale come illustrato di seguito, o [acceduta
+direttamente](https://prog2-unimi.github.io/handouts/).
+
+La directory `tests` contiene i file necessari all'esecuzione dei **test
+black-box** realizzati secondo le modalità previste dalla libreria
+[Jubbiot](https://github.com/prog2-unimi/jubbiot); i test possono essere
+eseguiti in locale (tramite il *build automation tool*) come illustrato di
+seguito. 
+
+> **NOTA BENE**: il *superamento dell'esame* è subordinato alla **corretta
+> esecuzione di tutti i test** associati al progetto, è pertanto *fortemente
+> consigliato* che lo studente familiarizzi da subito con il meccanismo di
+> testing.
+
 ## Come ottenere ed utilizzare questo materiale sul proprio computer
 
 Può scaricare un [archivio
@@ -105,3 +144,17 @@ trovare il materiale nel
 * branch dell'[AA 2021/22](../../tree/aa2122),
 * branch dell'[AA 2022/23](../../tree/aa2223),
 * branch dell'[AA 2023/24](../../tree/aa2324).
+
+## Un prompt per la simulazione dell'esame orale (basata su AI)
+
+In modo del tutto **sperimentale**, gli studenti possono interagire con un
+sistema di AI, come ad esempio [ChatGPT](https://chatgpt.com/) o
+[Claude](https://claude.ai/), per svolgere una simulazione dell'esame orale; a
+tale fine, dopo aver acceduto al sistema di AI, possono incollare il
+[prompt](ai-prompt.md) predisposto e procedere a rispondere alle domande che il
+modello genererà.
+
+La valutazione delle risposte fornite dall'AI è **esclusivamente indicativa** e
+non è affatto garantito che rispecchi la valutazione finale dell'esame; può ciò
+nonostante essere un accettabile punto di partenza per valutare la propria
+preparazione e la propria capacita di comunicare in modo chiaro e completo.
