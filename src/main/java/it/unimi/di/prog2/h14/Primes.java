@@ -28,6 +28,9 @@ import java.util.List;
 /** Iteratore che genera i numeri primi. */
 public class Primes implements Iterator<Integer> {
 
+  /** Crea un generatore di numeri primi. */
+  public Primes() {}
+
   /*-
    *  AF: il prossimo numero primo è il primo intero maggiore o uguale a
    *      candidate che non sia divisibile per uno dei primi già restituiti da next,

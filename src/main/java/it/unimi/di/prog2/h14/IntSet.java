@@ -49,13 +49,6 @@ public class IntSet implements Iterable<Integer> {
    *
    */
 
-  private boolean repOk() {
-    for (int i = 0; i < els.size(); i++)
-      for (int j = 0; j < els.size(); j++)
-        if (i != j && els.get(i).equals(els.get(j))) return false;
-    return true;
-  }
-
   /**
    * Initializes this set to be empty.
    *
@@ -72,7 +65,7 @@ public class IntSet implements Iterable<Integer> {
    * @param other the {@code IntSet} to copy from.
    */
   public IntSet(IntSet other) {
-    els = new ArrayList<Integer>(other.els);
+    els = new ArrayList<>(other.els);
     assert repOk();
   }
 
@@ -176,5 +169,17 @@ public class IntSet implements Iterable<Integer> {
   @Override
   public Iterator<Integer> iterator() {
     return new IntGenerator(els);
+  }
+
+  /**
+   * An implementation of the RI.
+   *
+   * @return whether the RI is satisfied.
+   */
+  private boolean repOk() {
+    for (int i = 0; i < els.size(); i++)
+      for (int j = 0; j < els.size(); j++)
+        if (i != j && els.get(i).equals(els.get(j))) return false;
+    return true;
   }
 }

@@ -19,30 +19,26 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.h14;
+package it.unimi.di.prog2.e15;
 
-import java.util.Scanner;
+/** A class to test {@link StringIterators}. */
+public class StringIteratorsClient {
 
-/** Classe per il test di {@link IntSet} {@link IntGenerator}. */
-public class IntSetsClient {
   /** . */
-  private IntSetsClient() {}
+  private StringIteratorsClient() {}
 
   /**
-   * Legge una sequenza di interi dal flusso di ingresso ed emette la loro somma nel flusso
-   * d'uscita.
+   * Prints the uppercase version of the even lines of the standard input.
    *
-   * @param args non usato.
+   * @param args not used.
    */
+  /*-  uncomment the following code once you have implemented the methods in StringIterators
+
   public static void main(String[] args) {
-    IntSet S = new IntSet();
-
     try (Scanner s = new Scanner(System.in)) {
-      while (s.hasNextInt()) S.insert(s.nextInt());
+      Iterator<String> it = StringIterators.uppercase(StringIterators.evenIterator(s));
+      while (it.hasNext()) System.out.println(it.next());
     }
-
-    int tot = 0;
-    for (int x : S) tot += x;
-    System.out.println(tot);
   }
+  */
 }
