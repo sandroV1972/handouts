@@ -36,7 +36,7 @@ public class StringToIntMapClient {
    * some arguments. The commands are:
    *
    * <ul>
-   *   <li>{@code + key value} to add a key-value pair to the map;
+   *   <li>{@code + key value} to add or replace a key-value pair to the map;
    *   <li>{@code - key} to remove the key from the map;
    *   <li>{@code ? key} to get the value associated to the key;
    *   <li>{@code c} to clear the map;
@@ -53,15 +53,24 @@ public class StringToIntMapClient {
     try (Scanner s = new Scanner(System.in)) {
       while (s.hasNextLine()) {
         String[] cmds = s.nextLine().split(" ");
-        switch (cmds[0].charAt(0)) {
+        char command = cmds[0].charAt(0);
+        String key = cmds.length > 1 ? cmds[1] : null;
+        int value = cmds.length > 2 ? Integer.parseInt(cmds[2]) : -1;
+        switch (command) {
           case '+':
-            System.out.println(map.put(cmds[1], Integer.parseInt(cmds[2])));
+            if (map.containsKey(key)) {
+              map.remove(key);
+              System.out.println(false);
+            } else {
+              System.out.println(true);
+            }
+            map.put(key, value);
             break;
           case '-':
-            System.out.println(map.remove(cmds[1]));
+            System.out.println(map.remove(key));
             break;
           case '?':
-            System.out.println(map.get(cmds[1]));
+            System.out.println(map.get(key));
             break;
           case 'c':
             map.clear();
@@ -69,6 +78,8 @@ public class StringToIntMapClient {
           case '#':
             System.out.println(map.size());
             break;
+          default:
+            throw new IllegalArgumentException("Unknown command: " + command);
         }
       }
     }

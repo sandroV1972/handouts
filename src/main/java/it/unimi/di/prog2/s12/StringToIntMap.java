@@ -92,7 +92,7 @@ public class StringToIntMap {
    * @see Collections#binarySearch(List, Object)
    * @param haystack the not {@code null} list of not {@code null} strings in increasing degree
    *     order.
-   * @param needle the string to look for.
+   * @param needle the string to look for, must not be {@code null}.
    * @return the index of the given string, or {@code -insertion_point - 1} if none is present.
    */
   private static int dichotomicSearch(final List<String> haystack, final String needle) {
@@ -133,32 +133,32 @@ public class StringToIntMap {
    *
    * @param key the key whose associated value is to be returned.
    * @return the value to which the specified key is mapped.
-   * @throws NoSuchElementException if this map contains no mapping for the key.
+   * @throws NoSuchElementException if this map contains no mapping for the key, or the key is
+   *     {@code null}.
    */
   public int get(String key) throws NoSuchElementException {
+    if (key == null) throw new NoSuchElementException("The key is null.");
     int insertionPoint = dichotomicSearch(keys, key);
-    if (insertionPoint < 0) throw new NoSuchElementException();
+    if (insertionPoint < 0) throw new NoSuchElementException("The key is not present in the map.");
     return values.get(insertionPoint);
   }
 
   /**
-   * Associates the specified value with the specified key in this map.
+   * Associates in this map the new key with the specified value.
    *
    * @param key the key with which the specified value is to be associated.
    * @param value the value to be associated with the specified key.
-   * @return {@code true} iff this map did not already contain a mapping for the key, and hence is
-   *     modified by this operation.
+   * @throws IllegalArgumentException if the map already contain a mapping for the key.
+   * @throws NullPointerException if the key is {@code null}.
    */
-  public boolean put(String key, int value) {
-    int insertionPoint = dichotomicSearch(keys, key);
-    if (insertionPoint >= 0) {
-      values.set(insertionPoint, value);
-      return false;
-    } else {
-      keys.add(-insertionPoint - 1, key);
-      values.add(-insertionPoint - 1, value);
-      return true;
-    }
+  public void put(String key, int value) {
+    int insertionPoint =
+        dichotomicSearch(keys, Objects.requireNonNull(key, "The key cannot be null."));
+    if (insertionPoint >= 0)
+      throw new IllegalArgumentException(
+          "Key already present, associated value: " + values.get(insertionPoint));
+    keys.add(-insertionPoint - 1, key);
+    values.add(-insertionPoint - 1, value);
   }
 
   /**
@@ -169,6 +169,7 @@ public class StringToIntMap {
    *     modified by this operation.
    */
   public boolean remove(String key) {
+    if (key == null) return false;
     int insertionPoint = dichotomicSearch(keys, key);
     if (insertionPoint < 0) return false;
     keys.remove(insertionPoint);
