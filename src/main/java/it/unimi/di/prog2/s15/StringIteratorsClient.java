@@ -31,7 +31,7 @@ public class StringIteratorsClient {
   private StringIteratorsClient() {}
 
   /**
-   * Prints the uppercase version of the even lines of the standard input.
+   * Prints the uppercase version of the lines of even length in the standard input.
    *
    * @param args not used.
    */

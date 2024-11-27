@@ -30,10 +30,10 @@ public class StringIterators {
   private StringIterators() {}
 
   /**
-   * Filters even-positioned strings.
+   * Filters even-length strings.
    *
    * @param it an iterator of strings.
-   * @return an iterator that returns the even-positioned strings of {@code it}.
+   * @return an iterator that returns the strings of even length of {@code it}.
    */
   public static Iterator<String> evenIterator(final Iterator<String> it) {
     return new Iterator<>() {

@@ -24,17 +24,17 @@ package it.unimi.di.prog2.s15;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/** Iteratori di utilità per stringhe. */
+/** Utility class with some string iterators. */
 public class StringIterators {
 
   /** . */
   private StringIterators() {}
 
   /**
-   * Filtra le righe di posto pari.
+   * Filters even-length strings.
    *
-   * @param it un iteratore di stringhe.
-   * @return un iteratore che restituisce le stringhe di posto pari di {@code it}.
+   * @param it an iterator of strings.
+   * @return an iterator that returns the strings of even length of {@code it}.
    */
   public static Iterator<String> evenIterator(final Iterator<String> it) {
     return new Iterator<>() {
@@ -61,10 +61,10 @@ public class StringIterators {
   }
 
   /**
-   * Mette in in maiuscole.
+   * Converts strings to uppercase.
    *
-   * @param it un iteratore di stringhe.
-   * @return un iteratore che restituisce le stringhe di {@code it} in maiuscole.
+   * @param it an iterator of strings.
+   * @return an iterator that returns the strings of {@code it} in uppercase.
    */
   public static Iterator<String> uppercase(final Iterator<String> it) {
     return new Iterator<>() {
