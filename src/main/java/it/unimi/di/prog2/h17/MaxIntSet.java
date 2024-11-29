@@ -25,19 +25,18 @@ import it.unimi.di.prog2.h08.impl.EmptyException;
 import it.unimi.di.prog2.h14.IntSet;
 
 /**
- * Esempio di {@code MaxIntSet} tratto dalla sezione 7.4 del libro di testo di Liskov <em>et
- * al.</em>.
+ * Example of {@code MaxIntSet} taken from section 7.4 of the textbook by Liskov <em>et al.</em>.
  *
- * <p><b>Attenzione</b>: questa classe estende {@link it.unimi.di.prog2.h14.IntSet} che corrisponde
- * all'implementazione di {@link it.unimi.di.prog2.h11.IntSet} a cui è stato aggiunto un iteratore.
+ * <p><b>Note</b>: this class extends {@link it.unimi.di.prog2.h14.IntSet} which corresponds to the
+ * implementation of {@link it.unimi.di.prog2.h11.IntSet} with an added iterator.
  */
 public class MaxIntSet extends IntSet {
 
   /** The biggest element, if set is not empty */
   private int biggest;
 
-  // RI: size() == 0 oppure isIn(biggest) e per ogni x isIn(x) implica biggest >= x.
-  // AF: coincide con quella di IntSet
+  // RI: size() == 0 or isIn(biggest) and for every x isIn(x) implies biggest >= x.
+  // AF: coincides with that of IntSet
 
   /** Construct an empty {@code MaxIntSet}. */
   public MaxIntSet() {
@@ -54,14 +53,14 @@ public class MaxIntSet extends IntSet {
   public void remove(final int x) {
     super.remove(x);
     if (size() == 0 || x != biggest)
-      return; // observe that if x > biggest it was not actually in this, so we don't need to update
-    // biggest
+      return; // observe that if x > biggest it was not actually in this, so we don't need to
+    // update biggest
     biggest = Integer.MIN_VALUE;
     for (int z : this) if (z > biggest) biggest = z;
   }
 
   /**
-   * Returns the maximum value in the set, or rises {@link EmptyException} otherwise.
+   * Returns the maximum value in the set, or raises {@link EmptyException} otherwise.
    *
    * @return the maximum value in the set.
    * @throws EmptyException if the set is empty.
@@ -74,10 +73,10 @@ public class MaxIntSet extends IntSet {
   /**
    * Checks the Representation Invariant.
    *
-   * @return true iff the Representation Invariant holds.
+   * @return true if and only if the Representation Invariant holds.
    */
   public boolean repOk() {
-    // non serve controllare super.repok() perché non c'è condivisione di stato
+    // no need to check super.repOk() because there is no state sharing
     if (size() == 0) return true;
     boolean found = false;
     for (int z : this) {
