@@ -25,10 +25,10 @@ package it.unimi.di.prog2.e03;
  * Vedi <a
  * href="https://github.com/mapio/labprog/blob/master/esercizi/lettera_piu_frequente/Testo.md">testo</a>,
  */
-public class LetteraPiùFrequente {
+public class LetteraPiuFrequente {
 
   /** . */
-  private LetteraPiùFrequente() {}
+  private LetteraPiuFrequente() {}
 
   /*- Completa il seguente main
 
