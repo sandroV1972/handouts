@@ -61,7 +61,7 @@ tasks.register('runClass', JavaExec) {
   group = 'Execution'
   description = 'Runs the main method of a class given its fully qualified name.'
   mainClass = project.hasProperty('mainClass') ? project.getProperty('mainClass') : 'my.pkg.Example'
-  classpath = sourceSets.main.runtimeClasspath + sourceSets.scratch.runtimeClasspath
+  classpath = sourceSets.main.runtimeClasspath
   defaultCharacterEncoding = 'UTF-8'
 }
 
