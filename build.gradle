@@ -1,10 +1,7 @@
 plugins {
   id 'java'
   id 'jacoco'
-  id 'pmd'
-  id 'checkstyle'
   id 'com.diffplug.spotless' version '6.25.0'
-  id 'org.cthing.locc' version '1.0.1'
 }
 
 java {
@@ -24,17 +21,7 @@ repositories {
   }
 }
 
-sourceSets {
-  scratch {
-    java { srcDirs = [ 'src/scratch/java' ] }
-    compileClasspath += sourceSets.main.output
-    runtimeClasspath += sourceSets.main.output
-  }
-}
-
 configurations {
-  scratchImplementation.extendsFrom implementation
-  scratchRuntimeOnly.extendsFrom runtimeOnly
   umlDoclet
 }
 
@@ -117,41 +104,3 @@ tasks.register('cleanActual', Delete) {
 clean {
   dependsOn cleanActual
 }
-
-pmd {
-  if (!project.hasProperty('doPMD')) {
-    sourceSets = []
-  }
-  toolVersion = '7.6.0'
-  consoleOutput = false
-  ignoreFailures = true
-  rulesMinimumPriority = 5
-  ruleSetFiles = files('pmd.xml')
-}
-
-configurations {
-  checkstyleConfig
-}
-
-dependencies {
-  checkstyleConfig 'com.puppycrawl.tools:checkstyle:9.3'
-}
-
-checkstyle {
-  if (!project.hasProperty('doCheckstyle')) {
-    sourceSets = []
-  }
-  toolVersion = '10.18.2'
-  ignoreFailures = true
-  maxWarnings = 0
-  config = resources.text.fromArchiveEntry(configurations.checkstyleConfig[0], 'google_checks.xml')
-}
-  
-tasks.register('consegna', Zip) {
-  group = 'Exam'
-  description = 'Creates a ZIP archive with the main source code of the project to be uploaded to the exam platform.'
-  archiveFileName = project.name + '-src.zip'
-  destinationDirectory = layout.projectDir
-  from sourceSets.main.allJava
-}
-
